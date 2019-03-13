@@ -1,6 +1,7 @@
 package com.assignment2.java;
 
 import java.util.*;
+import java.util.function.Predicate;
 
 public class EmployeeService {
 
@@ -8,6 +9,19 @@ public class EmployeeService {
 
 	// Creating a HashMap for the employees
 	Map<Integer, Employee<Integer>> employees = new HashMap<>();
+	
+	//interface ValidateEmployee{
+		//boolean check(Employee<Integer> emp);
+	//}
+	
+	//boolean validate(ValidateEmployee validator, Employee<Integer> emp) {
+	//	return validator.check(emp);
+	//}
+	
+	boolean validate(Employee<Integer> emp, Predicate<Employee<Integer>> validator) {
+		return validator.test(emp);
+		}
+	
 /*
 	// Used to make divider and row lines
 	String line = new String(new char[84]).replace('\0', '*');
@@ -84,7 +98,7 @@ public class EmployeeService {
 			int age = acceptValidInteger();
 			if (age == -1)
 				return;
-
+		
 			System.out.println("Enter Gender (Male/Female):");
 			String gender = sc.nextLine();
 
@@ -95,14 +109,37 @@ public class EmployeeService {
 			int salary = acceptValidInteger();
 			if (salary == -1)
 				return;
-
+			
 			// creating new employee object
 			Employee<Integer> emp = new Employee<>(name, age, gender, dept, salary);
 
+			/*boolean isValidData = validate( emp1 -> (emp1.getAge()>0 && emp1.getAge()<=50) && emp1.getSalary()>=10000 && (emp1.getDepartment().equals("IT") || emp1.getDepartment().equals("Admin")), emp);
+			if(isValidData) {
 			// adding entry to the HashMap
 			employees.put(emp.getEmpID(), emp);
 
 			System.out.println("\nEmployee added successfully..");
+			}
+			else {
+				System.out.println("Unable to add as criteria not met");
+			}*/
+			
+			boolean isValidData = validate(emp, emp1 ->{ 
+				
+			if((emp1.getAge()>0 && emp1.getAge()<=50) && emp1.getSalary()>=10000 && (emp1.getDepartment().equals("IT") ||
+					emp1.getDepartment().equals("Admin"))) {
+
+			System.out.println("\nEmployee added successfully..");
+			return true;
+			}
+			else {
+				System.out.println("Unable to add as criteria not met");
+				return false;
+			}
+			});
+			if(isValidData) {
+				employees.put(emp.getEmpID(), emp);
+			}
 
 		} catch (Exception e) {
 			System.out.println("\nSomething went wrong..!!");
@@ -266,3 +303,5 @@ public class EmployeeService {
 	}
 */
 	}
+
+ 
