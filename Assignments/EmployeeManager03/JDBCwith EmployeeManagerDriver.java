@@ -1,4 +1,5 @@
-package com.example.java.jdbc;
+ package 
+com.example.java.jdbc;
 
 //STEP 1. Import required packages
 import java.sql.Connection;
@@ -37,16 +38,16 @@ public class JdbcWithDriverManagerEx {
 			// STEP 4: Execute a query
 			System.out.println("Creating statement...");
 			stmt = conn.createStatement();
-			
+
 			//String insertQuery="INSERT INTO employee (name, age, designation, department,country) VALUES ('Shivam', 22, 'ASE', 'FSD', 'India')";
 			//boolean status= stmt.execute(insertQuery);
 			//System.out.println("Employee Inserted" + status);
-			
+
 			//String insertQuery1="INSERT INTO employee (name, age, designation, department,country) VALUES ('Saptrishi', 38, 'ASE', 'SAP', 'India')";
 			//int res= stmt.executeUpdate(insertQuery1);
 			//System.out.println("Employee Inserted" + res);
-			
-			
+
+
 			PreparedStatement pstmt;
 			String insertQueryforPreparedStatement="INSERT INTO employee (name, age, designation, department,country) VALUES (?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(insertQueryforPreparedStatement);
@@ -55,22 +56,22 @@ public class JdbcWithDriverManagerEx {
 		    pstmt.setString(3, "AGM");
 		    pstmt.setString(4, "Admin");
 		    pstmt.setString(5, "INDIA");
-             
+
 		    int insertCount = pstmt.executeUpdate();
 			System.out.println(insertCount + " Employee(s) inserted");
-			
-             
+
+
 			String sql1, sql2;
 			sql1 = "SELECT id, name, age, designation, department, country FROM employee";
 			//System.out.println(sql1);
       		// sql1 = "SELECT id, name, age FROM employee WHERE age >= 35 AND department='Admin' ORDER BY name";
-			
+
 			sql2 = "UPDATE employee SET designation=? WHERE id=?";
 
 			pstmt = conn.prepareStatement(sql2);
 			pstmt.setString(1, "ASM");
 			pstmt.setInt(2, 5);
-			
+
 			// DELETE query
 			String deleteQuery = "DELETE FROM employee WHERE id = ?";
 			pstmt = conn.prepareStatement(deleteQuery);
@@ -126,7 +127,7 @@ public class JdbcWithDriverManagerEx {
 			} // end finally try
 		} // end try
 		System.out.println("Goodbye!");
-		
+
 	}
 
 }
